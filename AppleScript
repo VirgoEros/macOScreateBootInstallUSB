@@ -137,14 +137,12 @@ end script
 ------------------------ 開啟鱫鰰macOS開機鰈鱮ISO鯯作腳本 ------------------------ON. 
 script OpenScript
 	try
-		tell application "Finder"
-			set OpenAppScript to POSIX path of (path to me as text) & ("Contents/Resources/Scripts/main.scpt")
-			set OpenAppScript to quoted form of OpenAppScript
-			do shell script ("open " & OpenAppScript)
-			set TerminalNotifier to POSIX path of (path to me as text) & ("Contents/MacOS/terminal-notifier")
-			set TerminalNotifier to quoted form of TerminalNotifier
-			do shell script (TerminalNotifier & " -title 腳本已開啟鰳唷💋")
-		end tell
+		set OpenAppScript to POSIX path of (path to me as text) & ("Contents/Resources/Scripts/main.scpt")
+		set OpenAppScript to quoted form of OpenAppScript
+		do shell script ("open " & OpenAppScript)
+		set TerminalNotifier to POSIX path of (path to me as text) & ("Contents/MacOS/terminal-notifier")
+		set TerminalNotifier to quoted form of TerminalNotifier
+		do shell script (TerminalNotifier & " -title 腳本已開啟鰳唷💋")
 		continue quit
 	on error errmsg number errnbr
 		if errnbr = -128 then continue quit
