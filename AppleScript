@@ -1,7 +1,7 @@
-
--- bit.ly/下載_鱫鰰macOS開機鰈鱮ISO鯯作_dmg 
--- GitHub.com/VirgoEros/macOScreateBootInstallUSB/blob/master/AppleScript 
-
+(* 
+bit.ly/下載_鱫鰰macOS開機鰈鱮ISO鯯作_dmg 
+GitHub.com/VirgoEros/macOScreateBootInstallUSB/blob/master/AppleScript 
+*)
 -----------------------∞ 鱫鰰macOS開機鰈鱮ISO鯯作 ∞------------------------------ON. 
 global macOSBoot, macOSBootISO, macOSBootUSB_BackgroundProcessing, errmsg, errnbr
 global macOSBootUSB_BackgroundProcessing, InstallmacOS, ErosDestUSB, CreateInstallMedia, NewVersion, OldVersion, inBackground, BackgroundProcessing, isDone, itemPath, itemProgress, TerminalNotifier, errmsg, errnbr
