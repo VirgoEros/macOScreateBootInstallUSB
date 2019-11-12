@@ -1,7 +1,7 @@
-
--- bit.ly/下載_鱫鰰macOS開機鰈鱮ISO鯯作_dmg 
--- GitHub.com/VirgoEros/macOScreateBootInstallUSB/blob/master/AppleScript 
-
+(* 
+bit.ly/下載_鱫鰰macOS開機鰈鱮ISO鯯作_dmg 
+GitHub.com/VirgoEros/macOScreateBootInstallUSB/blob/master/AppleScript 
+*) 
 -----------------------∞ 鱫鰰macOS開機鰈鱮ISO鯯作 ∞------------------------------ON. 
 global macOSBoot, macOSBootISO, macOSBootUSB_BackgroundProcessing, errmsg, errnbr
 global macOSBootUSB_BackgroundProcessing, InstallmacOS, ErosDestUSB, CreateInstallMedia, NewVersion, OldVersion, inBackground, BackgroundProcessing, isDone, itemPath, itemProgress, TerminalNotifier, errmsg, errnbr
@@ -98,6 +98,8 @@ script macOSBootISO
 			set InstallmacOSname to quoted form of InstallmacOSname
 			set InstallmacOSpath to quoted form of InstallmacOSpath
 			set inBackground to " &> /dev/null &"
+			do shell script "open " & quoted form of ("/Applications/Install macOS Catalina.app")
+			tell application "System Events" to key code (55 & 12)
 			{do shell script " 
 hdiutil create -o /tmp/macOS.cdr -size " & ISOsize & "gb -layout SPUD -fs HFS+J ; 
 hdiutil attach /tmp/macOS.cdr.dmg -noverify -mountpoint " & VolumesEros & " ; 
