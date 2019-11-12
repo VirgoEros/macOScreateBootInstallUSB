@@ -1,6 +1,7 @@
 (* 
 bit.ly/下載_鱫鰰macOS開機鰈鱮ISO鯯作_dmg 
 GitHub.com/VirgoEros/macOScreateBootInstallUSB/blob/master/AppleScript 
+ISO 制作前，請先執行安裝檔啟動與關閉動作後，再制作唷😊 
 *)
 -----------------------∞ 鱫鰰macOS開機鰈鱮ISO鯯作 ∞------------------------------ON. 
 global macOSBoot, macOSBootISO, macOSBootUSB_BackgroundProcessing, errmsg, errnbr
@@ -77,7 +78,9 @@ end script
 script macOSBootISO
 	try
 		tell application "Finder"
-			display dialog ("
+			display dialog (" 
+ISO 制作前，請先執行安裝檔啟動與關閉動作後，再制作唷😊 
+
 請沝女鰰移除所有外鯜磁鰈再䲀行唷💋 
 鯇成後鱠鯲桌面上顯䱈副檔名𩻟 iso 的檔案唷💋 
 等待鯇成鯽魺唷💋") with title ¬
