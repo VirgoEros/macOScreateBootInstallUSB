@@ -6,9 +6,8 @@ YouTube視頻演示: macOS USB鯯作
 YouTube視頻演示: macOS ISO鯯作 
 *)
 -----------------------∞ 鱫鰰macOS開機鰈鱮ISO鯯作 ∞------------------------------ON. 
-global macOSBoot, macOSBootUSB_Option, macOSBootUSB_NewVersion, macOSBootUSB_OldVersion, macOSBootISO_Option, macOSBootISO_NewVersion, macOSBootISO_OldVersion, OpenScript, errmsg, errnbr
-global macOSBootUSB_NewVersion, InstallmacOS, ErosDestUSB, CreateInstallMedia, NewVersion, inBackground, BackgroundProcessing, isDone, itemPath, itemProgress, TerminalNotifier, errmsg, errnbr
-global macOSBootUSB_OldVersion, InstallmacOS, ErosDestUSB, CreateInstallMedia, NewVersion, OldVersion, inBackground, BackgroundProcessing, isDone, itemPath, itemProgress, TerminalNotifier, errmsg, errnbr
+global macOSBoot, macOSBootUSB_OldVersion, macOSBootISO_OldVersion, OpenScript, errmsg, errnbr
+global macOSBootUSB_OldVersion, InstallmacOS, InstallmacOS_Name, ErosDestUSB, CreateInstallMedia, NewVersion, OldVersion, inBackground, BackgroundProcessing, isDone, itemPath, itemProgress, TerminalNotifier, OpenInstallVolumes, errmsg, errnbr
 global macOSBootISO, InstallmacOS, ISOsize, VolumesEros, InstallmacOSpath, CreateInstallMedia, InstallmacOSname, InstallmacOSnameExtension, inBackground, TerminalNotifier, isDone, itemPath, itemProgress, errmsg, errnbr
 global OpenScript, OpenAppScript, TerminalNotifier, errmsg, errnbr
 
@@ -21,27 +20,9 @@ on run
 					{"開機鰈", "ISO", "開啟macOS開機鰈鱮ISO鯯作腳本"} with title ¬
 					{"鱫鰰macOS開機鰈鱮ISO鯯作"}
 			
-			if macOSBoot is "開機鰈" then
-				set {button returned:macOSBootUSB_Option} to ¬
-					display dialog (" 
-請鰛鰇鱮美鱺沝療癒鯀女鰰選擇欲鯯作 開機鰈 或 ISO 唷💋") buttons ¬
-						{"新版", "舊版", "退出"} with title ¬
-						{"鱫鰰macOS開機鰈鱮ISO鯯作"}
-				if macOSBootUSB_Option is "新版" then run script macOSBootUSB_NewVersion
-				if macOSBootUSB_Option is "舊版" then run script macOSBootUSB_OldVersion
-				if macOSBootUSB_Option is "退出" then continue quit
-			end if
+			if macOSBoot is "開機鰈" then run script macOSBootUSB_OldVersion
 			
-			if macOSBoot is "ISO" then
-				set {button returned:macOSBootISO_Option} to ¬
-					display dialog (" 
-請鰛鰇鱮美鱺沝療癒鯀女鰰選擇 ISO 鯯作選項唷💋") buttons ¬
-						{"新版", "舊版", "退出"} with title ¬
-						{"鱫鰰macOS開機鰈鱮ISO鯯作"}
-				if macOSBootISO_Option is "新版" then run script macOSBootISO_NewVersion
-				if macOSBootISO_Option is "舊版" then run script macOSBootISO_OldVersion
-				if macOSBootISO_Option is "退出" then continue quit
-			end if
+			if macOSBoot is "ISO" then run script macOSBootISO_OldVersion
 			
 			if macOSBoot is "開啟macOS開機鰈鱮ISO鯯作腳本" then run script OpenScript
 		end tell
@@ -50,61 +31,16 @@ on run
 		continue quit
 	end try
 end run
----------------------∞ 鱫鰰macOS開機鰈鯯作(新版) ∞----------------------------ON. 
-script macOSBootUSB_NewVersion
-	try
-		tell application "Finder"
-			set InstallmacOS to ¬
-				POSIX path of (choose file with prompt {" 
-請鰛鰇鱮美鱺沝療癒鯀女鰰選擇欲鯯作開機鰈之macOS來源版本唷💋"} default location (path to (applications folder)))
-			set ErosDestUSB to ¬
-				quoted form of POSIX path of (choose folder with prompt {" 
-請鰛鰇鱮美鱺沝療癒鯀女鰰選擇欲鯯作開機鰈之目標USB唷💋"} default location (path to (startup disk)))
-			set CreateInstallMedia to quoted form of (InstallmacOS & "Contents/Resources/createinstallmedia")
-			set NewVersion to (CreateInstallMedia & " --volume ")
-			set InstallmacOS to quoted form of InstallmacOS
-			set inBackground to " &> /dev/null &"
-			set BackgroundProcessing to NewVersion & ErosDestUSB & inBackground
-			(do shell script BackgroundProcessing with administrator privileges)
-			delay 1
-			set isDone to false
-			set itemPath to ("createinstallmedia")
-			set itemProgress to "ps ax | grep -v grep | grep " & itemPath
-			repeat while isDone is false
-				try
-					do shell script itemProgress
-					if the result contains itemPath then
-						delay 1
-					else
-						set isDone to true
-					end if
-				on error
-					set isDone to true
-				end try
-			end repeat
-			if isDone is true then
-				set TerminalNotifier to POSIX path of (path to me as text) ¬
-					& {"Contents/MacOS/terminal-notifier"}
-				set TerminalNotifier to quoted form of TerminalNotifier
-				do shell script (TerminalNotifier & " -title 開機鰈鯯作鯇成鰳唷💋")
-				delay 1
-				do shell script ("open " & ErosDestUSB)
-				delay 1
-				continue quit
-			end if
-		end tell
-	on error errmsg number errnbr
-		if errnbr = -128 then continue quit
-		continue quit
-	end try
-end script
----------------------∞ 鱫鰰macOS開機鰈鯯作(舊版) ∞----------------------------ON. 
+---------------------∞ 鱫鰰macOS開機鰈鯯作 ∞----------------------------ON. 
 script macOSBootUSB_OldVersion
 	try
 		tell application "Finder"
 			set InstallmacOS to ¬
-				POSIX path of (choose file with prompt {" 
+				(choose file with prompt {" 
 請鰛鰇鱮美鱺沝療癒鯀女鰰選擇欲鯯作開機鰈之macOS來源版本唷💋"} default location (path to (applications folder)))
+			set InstallmacOS_Name to InstallmacOS's name as string
+			set InstallmacOS_Name to text 1 thru ((offset of "." in InstallmacOS_Name) - 1) of InstallmacOS_Name
+			set InstallmacOS to POSIX path of InstallmacOS
 			set ErosDestUSB to ¬
 				quoted form of POSIX path of (choose folder with prompt {" 
 請鰛鰇鱮美鱺沝療癒鯀女鰰選擇欲鯯作開機鰈之目標USB唷💋"} default location (path to (startup disk)))
@@ -137,7 +73,8 @@ script macOSBootUSB_OldVersion
 				set TerminalNotifier to quoted form of TerminalNotifier
 				do shell script (TerminalNotifier & " -title 開機鰈鯯作鯇成鰳唷💋")
 				delay 1
-				do shell script ("open " & ErosDestUSB)
+				set OpenInstallVolumes to quoted form of ("/Volumes/" & InstallmacOS_Name)
+				do shell script ("open " & OpenInstallVolumes)
 				delay 1
 				continue quit
 			end if
@@ -147,69 +84,7 @@ script macOSBootUSB_OldVersion
 		continue quit
 	end try
 end script
----------------------------∞ 鱫鰰macOS ISO鯯作(新版) ∞-----------------------------------ON. 
-script macOSBootISO_NewVersion
-	try
-		tell application "Finder"
-			display dialog (" 
-倘鰙無法制作，請重開機後再制作唷😊 
-
-請沝女鰰移除所有外鯜磁鰈再䲀行唷💋 
-鯇成後鱠鯲桌面上顯䱈副檔名𩻟 iso 的檔案唷💋 
-等待鯇成鯽魺唷💋") with title ¬
-				{"macOS ISO鯯作"}
-			set InstallmacOS to ¬
-				(choose file with prompt {" 
-請鰛鰇鱮美鱺沝療癒鯀女鰰選擇欲鯯作ISO之macOS來源版本唷💋"} default location (path to (applications folder)))
-			set ISOsize to InstallmacOS's size as string
-			set ISOsize to characters 4 thru 1 of ISOsize
-			set VolumesEros to quoted form of ("/Volumes/鱫鰰")
-			set InstallmacOSpath to POSIX path of InstallmacOS
-			set CreateInstallMedia to quoted form of (InstallmacOSpath & "Contents/Resources/createinstallmedia")
-			set InstallmacOSname to InstallmacOS's name as string
-			set InstallmacOSname to text 1 thru ((offset of "." in InstallmacOSname) - 1) of InstallmacOSname
-			set InstallmacOSnameExtension to quoted form of (InstallmacOSname & ".iso")
-			set InstallmacOSname to quoted form of InstallmacOSname
-			set InstallmacOSpath to quoted form of InstallmacOSpath
-			set inBackground to " &> /dev/null &"
-			{do shell script " 
-hdiutil create -o /tmp/macOS.cdr -size " & ISOsize & "gb -layout SPUD -fs HFS+J ; 
-hdiutil attach /tmp/macOS.cdr.dmg -noverify -mountpoint " & VolumesEros & " ; 
-" & CreateInstallMedia & " --volume " & VolumesEros & " ; 
-hdiutil detach /Volumes/" & InstallmacOSname & " ; 
-hdiutil convert /tmp/macOS.cdr.dmg -format UDTO -o /tmp/macOS.iso ; 
-mv /tmp/macOS.iso.cdr ~/Desktop/" & InstallmacOSnameExtension & " ; 
-rm /tmp/macOS.cdr.dmg ; " & inBackground with administrator privileges}
-			delay 1
-			set isDone to false
-			set itemPath to ("/tmp/macOS.iso")
-			set itemProgress to "ps ax | grep -v grep | grep " & itemPath
-			repeat while isDone is false
-				try
-					do shell script itemProgress
-					if the result contains itemPath then
-						delay 1
-					else
-						set isDone to true
-					end if
-				on error
-					set isDone to true
-				end try
-			end repeat
-			if isDone is true then
-				set TerminalNotifier to POSIX path of (path to me as text) ¬
-					& {"Contents/MacOS/terminal-notifier"}
-				set TerminalNotifier to quoted form of TerminalNotifier
-				do shell script (TerminalNotifier & " -title ISO鯯作鯇成鰳唷💋")
-				continue quit
-			end if
-		end tell
-	on error errmsg number errnbr
-		if errnbr = -128 then continue quit
-		continue quit
-	end try
-end script
----------------------------∞ 鱫鰰macOS ISO鯯作(舊版) ∞-----------------------------------ON. 
+---------------------------∞ 鱫鰰macOS ISO鯯作 ∞-----------------------------------ON. 
 script macOSBootISO_OldVersion
 	try
 		tell application "Finder"
