@@ -110,16 +110,16 @@ script macOSBootISO_OldVersion
 			set InstallmacOSpath to quoted form of InstallmacOSpath
 			set inBackground to " &> /dev/null &"
 			{do shell script " 
-hdiutil create -o /tmp/macOS.cdr -size " & ISOsize & "gb -layout SPUD -fs HFS+J ; 
-hdiutil attach /tmp/macOS.cdr.dmg -noverify -mountpoint " & VolumesEros & " ; 
+hdiutil create -o /tmp/" & InstallmacOSname & ".cdr -size " & ISOsize & "gb -layout SPUD -fs HFS+J ; 
+hdiutil attach /tmp/" & InstallmacOSname & ".cdr.dmg -noverify -mountpoint " & VolumesEros & " ; 
 " & CreateInstallMedia & " --volume " & VolumesEros & " --applicationpath " & InstallmacOSpath & " --nointeraction ; 
 hdiutil detach /Volumes/" & InstallmacOSname & " ; 
-hdiutil convert /tmp/macOS.cdr.dmg -format UDTO -o /tmp/macOS.iso ; 
-mv /tmp/macOS.iso.cdr ~/Desktop/" & InstallmacOSnameExtension & " ; 
-rm /tmp/macOS.cdr.dmg ; " & inBackground with administrator privileges}
+hdiutil convert /tmp/" & InstallmacOSname & ".cdr.dmg -format UDTO -o /tmp/" & InstallmacOSname & ".iso ; 
+mv /tmp/" & InstallmacOSname & ".iso.cdr ~/Desktop/" & InstallmacOSnameExtension & " ; 
+rm /tmp/" & InstallmacOSname & ".cdr.dmg ; " & inBackground with administrator privileges}
 			delay 1
 			set isDone to false
-			set itemPath to ("/tmp/macOS.iso")
+			set itemPath to (InstallmacOSname)
 			set itemProgress to "ps ax | grep -v grep | grep " & itemPath
 			repeat while isDone is false
 				try
