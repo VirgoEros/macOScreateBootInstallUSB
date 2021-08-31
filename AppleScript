@@ -110,16 +110,18 @@ script macOSBootISO_OldVersion
 			set InstallmacOSpath to quoted form of InstallmacOSpath
 			set inBackground to " &> /dev/null &"
 			{do shell script " 
-hdiutil create -o /tmp/" & InstallmacOSname & ".cdr -size " & ISOsize & "gb -layout SPUD -fs HFS+J ; 
-hdiutil attach /tmp/" & InstallmacOSname & ".cdr.dmg -noverify -mountpoint " & VolumesEros & " ; 
-" & CreateInstallMedia & " --volume " & VolumesEros & " --applicationpath " & InstallmacOSpath & " --nointeraction ; 
-hdiutil detach /Volumes/" & InstallmacOSname & " ; 
-hdiutil convert /tmp/" & InstallmacOSname & ".cdr.dmg -format UDTO -o /tmp/" & InstallmacOSname & ".iso ; 
-mv /tmp/" & InstallmacOSname & ".iso.cdr ~/Desktop/" & InstallmacOSnameExtension & " ; 
-rm /tmp/" & InstallmacOSname & ".cdr.dmg ; " & inBackground with administrator privileges}
+hdiutil create -o /tmp/" & InstallmacOSname & ".cdr -size " & ISOsize & "g -layout SPUD -fs HFS+J ;
+hdiutil attach /tmp/" & InstallmacOSname & ".cdr.dmg -noverify -mountpoint /Volumes/install_build ;
+/Applications/" & InstallmacOSname & ".app/Contents/Resources/createinstallmedia --volume /Volumes/install_build --nointeraction ;
+hdiutil detach /Volumes/'Shared Support' ;
+hdiutil detach /Volumes/'Shared Support 1' ;
+hdiutil detach / Volumes /" & InstallmacOSname & " ;
+hdiutil convert /tmp/" & InstallmacOSname & ".cdr.dmg -format UDTO -o /tmp/" & InstallmacOSname & ".iso ;
+mv /tmp/" & InstallmacOSname & ".iso.cdr ~/Desktop/" & InstallmacOSname & ".iso ;
+rm /tmp/" & InstallmacOSname & ".cdr.dmg ;  " & inBackground with administrator privileges}
 			delay 1
 			set isDone to false
-			set itemPath to (InstallmacOSname)
+			set itemPath to ("/tmp/macOS.iso")
 			set itemProgress to "ps ax | grep -v grep | grep " & itemPath
 			repeat while isDone is false
 				try
