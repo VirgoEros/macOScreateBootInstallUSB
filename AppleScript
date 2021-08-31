@@ -1,9 +1,6 @@
 (* 
 bit.ly/下載_鱫鰰macOS開機鰈鱮ISO鯯作_dmg 
 GitHub.com/VirgoEros/macOScreateBootInstallUSB/blob/master/AppleScript 
-
-YouTube視頻演示: macOS USB鯯作 
-YouTube視頻演示: macOS ISO鯯作 
 *)
 -----------------------∞ 鱫鰰macOS開機鰈鱮ISO鯯作 ∞------------------------------ON. 
 global macOSBoot, macOSBootUSB_OldVersion, macOSBootISO_OldVersion, OpenScript, errmsg, errnbr
